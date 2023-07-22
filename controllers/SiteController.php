@@ -128,8 +128,16 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionSignUp()
+    public function actionSignup()
     {
         $model = new SignupForm();
+
+        if($model->load(Yii::$app->request->post()) && $model->signUp())
+        {
+            return $this->redirect(Yii::$app->homeUrl);
+        }
+
+        return $this->render('signup', ['model' => $model]);
+
     }
 }
